@@ -9,7 +9,9 @@ The following table gives a rough overview of some of the coding tools and featu
 | alpha_triangle  	|  Modular mode, alpha channel, 9-bit |
 | animation_icos4D  |  VarDCT mode, alpha channel, animation |
 | animation_newtons_cradle | Modular mode, Palette, animation |
+| animation_spline | Splines, animation |
 | bench_oriented_BRG | Container, VarDCT mode, JPEG reconstruction, Orientation, ICC profile |
 | bike | VarDCT mode |
+| cmyk_layers | Modular mode, CMYK (kBlack channel), layers, large ICC profile |
 | grayscale_public_university | Modular mode, Squeeze, Grayscale |
 | sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers (alpha blending) |
