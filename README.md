@@ -14,4 +14,5 @@ The following table gives a rough overview of some of the coding tools and featu
 | bike | VarDCT mode |
 | cmyk_layers | Modular mode, CMYK (kBlack channel), layers, large ICC profile |
 | grayscale_public_university | Modular mode, Squeeze, Grayscale |
+| lossless_pfm | Modular mode, lossless 32-bit float |
 | sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers (alpha blending) |
