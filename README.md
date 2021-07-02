@@ -27,5 +27,6 @@ The following table gives a rough overview of some of the coding tools and featu
 | patches | VarDCT mode, Patches |
 | patches_lossless | Modular mode, Patches |
 | progressive | VarDCT mode, LF frame (Modular + Squeeze), TOC permutation, HF passes |
-| sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers (alpha blending) |
+| spot | Modular mode, two spot colors, two layers, 16-bit ProPhoto |
+| sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers |
 | upsampling | VarDCT mode, alpha channel, upsampling |
