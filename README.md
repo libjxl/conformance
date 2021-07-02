@@ -6,13 +6,14 @@ The following table gives a rough overview of some of the coding tools and featu
 
 | test case  	| what it tests	|
 |---	|---	|
-| alpha_triangle  |  Modular mode, alpha channel, 9-bit |
 | alpha_nonpremultiplied | Modular mode, alpha channel, 12-bit |
 | alpha_premultiplied | VarDCT mode, premultiplied alpha channel, 12-bit color, 16-bit alpha |
+| alpha_triangle  |  Modular mode, alpha channel, 9-bit |
 | animation_icos4D  |  VarDCT mode, alpha channel, animation |
 | animation_newtons_cradle | Modular mode, Palette, animation |
 | animation_spline | Splines, animation |
 | bench_oriented_BRG | Container, VarDCT mode, JPEG reconstruction, Orientation, ICC profile |
+| blendmodes | Modular mode, various blend modes, 12-bit |
 | bike | VarDCT mode |
 | cmyk_layers | Modular mode, CMYK (kBlack channel), layers, large ICC profile |
 | grayscale_public_university | Modular mode, Squeeze, Grayscale |
