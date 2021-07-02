@@ -13,9 +13,12 @@ The following table gives a rough overview of some of the coding tools and featu
 | animation_newtons_cradle | Modular mode, Palette, animation |
 | animation_spline | Splines, animation |
 | bench_oriented_BRG | Container, VarDCT mode, JPEG reconstruction, Orientation, ICC profile |
+| bicycles | Modular mode, Squeeze, XYB |
 | bike | VarDCT mode |
 | blendmodes | Modular mode, various blend modes, 12-bit |
+| cafe | Container, VarDCT mode, JPEG reconstruction, chroma upsampling |
 | cmyk_layers | Modular mode, CMYK (kBlack channel), layers, large ICC profile |
+| delta_palette | Modular mode, Palette with delta entries |
 | grayscale | VarDCT mode, Grayscale ICC profile |
 | grayscale_jpeg | Container, VarDCT mode, JPEG reconstruction, Grayscale |
 | grayscale_public_university | Modular mode, Squeeze, Grayscale |
@@ -23,4 +26,6 @@ The following table gives a rough overview of some of the coding tools and featu
 | lz77_flower | Modular mode, lz77 |
 | patches | VarDCT mode, Patches |
 | patches_lossless | Modular mode, Patches |
+| progressive | VarDCT mode, LF frame (Modular + Squeeze), TOC permutation, HF passes |
 | sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers (alpha blending) |
+| upsampling | VarDCT mode, alpha channel, upsampling |
