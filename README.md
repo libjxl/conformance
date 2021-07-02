@@ -6,7 +6,9 @@ The following table gives a rough overview of some of the coding tools and featu
 
 | test case  	| what it tests	|
 |---	|---	|
-| alpha_triangle  	|  Modular mode, alpha channel, 9-bit |
+| alpha_triangle  |  Modular mode, alpha channel, 9-bit |
+| alpha_nonpremultiplied | Modular mode, alpha channel, 12-bit |
+| alpha_premultiplied | VarDCT mode, premultiplied alpha channel, 12-bit color, 16-bit alpha |
 | animation_icos4D  |  VarDCT mode, alpha channel, animation |
 | animation_newtons_cradle | Modular mode, Palette, animation |
 | animation_spline | Splines, animation |
