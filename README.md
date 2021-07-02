@@ -13,9 +13,11 @@ The following table gives a rough overview of some of the coding tools and featu
 | animation_newtons_cradle | Modular mode, Palette, animation |
 | animation_spline | Splines, animation |
 | bench_oriented_BRG | Container, VarDCT mode, JPEG reconstruction, Orientation, ICC profile |
-| blendmodes | Modular mode, various blend modes, 12-bit |
 | bike | VarDCT mode |
+| blendmodes | Modular mode, various blend modes, 12-bit |
 | cmyk_layers | Modular mode, CMYK (kBlack channel), layers, large ICC profile |
 | grayscale_public_university | Modular mode, Squeeze, Grayscale |
 | lossless_pfm | Modular mode, lossless 32-bit float |
+| patches | VarDCT mode, Patches |
+| patches_lossless | Modular mode, Patches |
 | sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers (alpha blending) |
