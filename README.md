@@ -24,6 +24,7 @@ The following table gives a rough overview of some of the coding tools and featu
 | grayscale_public_university | Modular mode, Squeeze, Grayscale |
 | lossless_pfm | Modular mode, lossless 32-bit float |
 | lz77_flower | Modular mode, lz77 |
+| noise | Noise |
 | opsin_inverse | OpsinInverseMatrix |
 | patches | VarDCT mode, Patches |
 | patches_lossless | Modular mode, Patches |
