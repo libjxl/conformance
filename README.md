@@ -32,3 +32,8 @@ The following table gives a rough overview of some of the coding tools and featu
 | spot | Modular mode, two spot colors, two layers, 16-bit ProPhoto |
 | sunset_logo | Modular mode, RCT, 10-bit, Orientation, two layers |
 | upsampling | VarDCT mode, alpha channel, upsampling |
+
+# Downloading/uploading testcases
+Run `./scripts/install_hooks.sh` to install hooks to automatically download upon checkout (and upload upon commit)
+binary blobs to GCP. Write access is required for uploads. An existing installation of `gsutil` is required for both
+download and upload.
