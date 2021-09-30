@@ -1,0 +1,6 @@
+testcases/*/*.npy
+testcases/*/*.jpg
+testcases/*/*.icc
+.objects
+# We allow input.jxl files in this repository for ease of human-driven testing.
+#testcases/*/*.jxl

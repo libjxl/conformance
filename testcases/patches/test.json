@@ -1,0 +1,30 @@
+{
+  "frames": [
+    {
+      "name": "",
+      "rms_error": 0.02,
+      "peak_error": 0.06
+    }
+  ],
+  "intensity_target": 255.0,
+  "min_nits": 0.0,
+  "relative_to_max_display": 0,
+  "linear_below": 0.0,
+  "extra_channel_type": [
+    "Alpha"
+  ],
+  "bits_per_sample": [
+    8,
+    8
+  ],
+  "exp_bits_per_sample": [
+    0,
+    0
+  ],
+  "original_icc": "original.icc",
+  "sha256sums": {
+    "original.icc": "3a10bcd8e4c39d12053ebf66d18075c7ded4fd6cf78d26d9c47bdc0cde215115",
+    "reference.icc": "956c9b6ecfef8ef1420e8e93e30a89d3c1d4f7ce5c2f3e2612f95c05a7097064",
+    "reference_image.npy": "4ded27ea56c4517d2c5e100d22c0ab95de73337ba397f5d04d7bf2e7cd7615dc"
+  }
+}
