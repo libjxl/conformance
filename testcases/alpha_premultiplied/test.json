@@ -1,9 +1,9 @@
 {
-  "frames": [
+"frames": [
     {
       "name": "",
-      "rms_error": 0.02,
-      "peak_error": 0.06
+      "rms_error": 0.000003815,
+      "peak_error": 0.000003815
     }
   ],
   "intensity_target": 255.0,

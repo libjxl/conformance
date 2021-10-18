@@ -2,8 +2,8 @@
   "frames": [
     {
       "name": "Black",
-      "rms_error": 0.02,
-      "peak_error": 0.06
+      "rms_error": 0.000976562,
+      "peak_error": 0.000976562
     }
   ],
   "intensity_target": 255.0,
