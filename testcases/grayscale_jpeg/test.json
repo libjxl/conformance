@@ -2,7 +2,7 @@
   "frames": [
     {
       "name": "",
-      "rms_error": 0.00001,
+      "rms_error": 1e-05,
       "peak_error": 0.004
     }
   ],
