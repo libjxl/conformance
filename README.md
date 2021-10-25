@@ -37,3 +37,5 @@ The following table gives a rough overview of some of the coding tools and featu
 Run `./scripts/install_hooks.sh` to install hooks to automatically download upon checkout (and upload upon commit)
 binary blobs to GCP. Write access is required for uploads. An existing installation of `gsutil` is required for both
 download and upload.
+
+The hooks will not run on clone, so you should run `./scripts/download_and_symlink.sh` manually after cloning.
