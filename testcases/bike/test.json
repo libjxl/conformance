@@ -2,8 +2,8 @@
   "frames": [
     {
       "name": "",
-      "rms_error": 0.004,
-      "peak_error": 0.0001
+      "rms_error": 0.0001,
+      "peak_error": 0.004
     }
   ],
   "intensity_target": 255.0,
@@ -21,6 +21,6 @@
   "sha256sums": {
     "original.icc": "809e189d1bf1fadb66f130ed0463d0de374b46497d299997e7c84619cbd35ed3",
     "reference.icc": "809e189d1bf1fadb66f130ed0463d0de374b46497d299997e7c84619cbd35ed3",
-    "reference_image.npy": "d276a57e3009b31533ba1dc4d500e0a80fe6bf3c120087127d94ae8a1a4f6bb4"
+    "reference_image.npy": "63cdd4134b9d210a8bf7e0f6ece360b61dbac0f85667f0fe2cc7db3c47e7b959"
   }
 }

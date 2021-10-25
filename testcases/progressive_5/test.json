@@ -21,6 +21,6 @@
   "sha256sums": {
     "original.icc": "bef95ce5cdb139325f2a299b943158e00e39a7ca3cf597ab3dfa3098e42fc707",
     "reference.icc": "956c9b6ecfef8ef1420e8e93e30a89d3c1d4f7ce5c2f3e2612f95c05a7097064",
-    "reference_image.npy": "950ecd3f101e190b40abb6dad2edb4c1005048a4bf1a4464582ebbfa820ce3d0"
+    "reference_image.npy": "1ed503b19173cb5b7e5850cf83eb607eb01deec5fe00fbe2c8c5567231e86414"
   }
 }
