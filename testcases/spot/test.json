@@ -1,0 +1,36 @@
+{
+  "frames": [
+    {
+      "name": "",
+      "rms_error": 3.815e-06,
+      "peak_error": 3.815e-06
+    }
+  ],
+  "intensity_target": 255.0,
+  "min_nits": 0.0,
+  "relative_to_max_display": 0,
+  "linear_below": 0.0,
+  "extra_channel_type": [
+    "Alpha",
+    "SpotColor",
+    "SpotColor"
+  ],
+  "bits_per_sample": [
+    16,
+    16,
+    16,
+    16
+  ],
+  "exp_bits_per_sample": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "original_icc": "original.icc",
+  "sha256sums": {
+    "reference.icc": "ce0caee9506116ea94d7367d646f7fd6d0b7e82feb8d1f3de4edb3ba57bae07e",
+    "original.icc": "ce0caee9506116ea94d7367d646f7fd6d0b7e82feb8d1f3de4edb3ba57bae07e",
+    "reference_image.npy": "82de72e756db992792b8e3eb5eac5194ef83e9ab4dc03e846492fbedde7b58da",
+  }
+}
