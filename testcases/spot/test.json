@@ -1,7 +1,7 @@
 {
   "frames": [
     {
-      "name": "",
+      "name": "TEST",
       "rms_error": 3.815e-06,
       "peak_error": 3.815e-06
     }
@@ -31,6 +31,6 @@
   "sha256sums": {
     "reference.icc": "ce0caee9506116ea94d7367d646f7fd6d0b7e82feb8d1f3de4edb3ba57bae07e",
     "original.icc": "ce0caee9506116ea94d7367d646f7fd6d0b7e82feb8d1f3de4edb3ba57bae07e",
-    "reference_image.npy": "82de72e756db992792b8e3eb5eac5194ef83e9ab4dc03e846492fbedde7b58da",
+    "reference_image.npy": "82de72e756db992792b8e3eb5eac5194ef83e9ab4dc03e846492fbedde7b58da"
   }
 }
