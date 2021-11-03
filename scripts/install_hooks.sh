@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Symlink persistent scripts as git hooks.
+
 cd "$(dirname "$(realpath $0)")/.."
 
 ln -s ../../scripts/upload_and_symlink.sh .git/hooks/pre-commit

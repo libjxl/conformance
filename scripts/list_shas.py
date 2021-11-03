@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+#
+# Prints 'sha256sums' dictionary of given JSON file.
+
 import sys
 import json
 

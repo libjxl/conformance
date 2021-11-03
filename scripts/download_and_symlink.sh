@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# "post-checkout" git hook.
 
 set -eu
 

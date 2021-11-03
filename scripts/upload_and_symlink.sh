@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# "pre-commit" git hook.
 
 FILES_PATTERN="-name *.icc -o -name *.npy -o -name *.jpg"
 TESTCASE_DIRECTORY="testcases/"
