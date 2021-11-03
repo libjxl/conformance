@@ -18,5 +18,6 @@ opsin_inverse_5
 patches_5
 patches_lossless
 progressive_5
+spot
 sunset_logo
 upsampling_5
