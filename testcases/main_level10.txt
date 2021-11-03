@@ -21,5 +21,6 @@ opsin_inverse
 patches
 patches_lossless
 progressive
+spot
 sunset_logo
 upsampling
