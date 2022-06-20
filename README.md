@@ -38,4 +38,6 @@ Run `./scripts/install_hooks.sh` to install hooks to automatically download upon
 binary blobs to GCP. Write access is required for uploads. An existing installation of `gsutil` is required for both
 download and upload.
 
+Installation instructions for `gsutil` can be found at https://cloud.google.com/storage/docs/gsutil_install
+
 The hooks will not run on clone, so you should run `./scripts/download_and_symlink.sh` manually after cloning.
