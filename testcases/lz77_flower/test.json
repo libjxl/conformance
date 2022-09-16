@@ -17,9 +17,8 @@
   "exp_bits_per_sample": [
     0
   ],
-  "original_icc": "original.icc",
   "sha256sums": {
-    "original.icc": "793cb9df4e4ce93ce8fe827fde34e7fb925b7079fcb68fba1e56fc4b35508ccb",
+    "original.icc": "1e6b51a07bfd3cc75efec60efe592e5dbbbb135b717b102c5c7383e91be6bf2f",
     "reference.icc": "793cb9df4e4ce93ce8fe827fde34e7fb925b7079fcb68fba1e56fc4b35508ccb",
     "reference_image.npy": "953d3ada476e3218653834c9addc9c16bb6f9f03b18be1be8a85c07a596ea32d"
   }
