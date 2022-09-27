@@ -20,7 +20,7 @@
   "original_icc": "original.icc",
   "sha256sums": {
     "original.icc": "3f62598dfd40d6642ca5fd962559bb6615af15448a57a3972a4089c109e62fbd",
-    "reference.icc": "14a9d275db16a258216f2066ff359717872ca8e7e642b5b0c31a5d23d3aeae56",
+    "reference.icc": "57363d9ec00043fe6e3f40b1c3e0cc4676773011fd0818710fb26545002ac27d",
     "reference_image.npy": "59162e158e042dc44710eb4d334cea78135399613461079582d963fe79251b68"
   }
 }
