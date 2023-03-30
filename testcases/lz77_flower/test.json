@@ -19,7 +19,7 @@
   ],
   "original_icc": "original.icc",
   "sha256sums": {
-    "original.icc": "f9e688a8311a1b831b4f13ce597434e15a7c964dd0cdb651d7fade6a1508cc9c",
+    "original.icc": "dd225f2a251609e7bf6ead2fe1c2e128c1539e50fba8aeb7f491af7d5b9d5c64",
     "reference.icc": "793cb9df4e4ce93ce8fe827fde34e7fb925b7079fcb68fba1e56fc4b35508ccb",
     "reference_image.npy": "953d3ada476e3218653834c9addc9c16bb6f9f03b18be1be8a85c07a596ea32d"
   }
