@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import shlex
 
 import lcms2
 
@@ -129,7 +130,7 @@ def ConformanceTestRunner(args):
                 input_filename = os.path.join(test_dir, 'input.jxl')
                 pixel_prefix = os.path.join(work_dir, 'decoded')
                 output_filename = pixel_prefix + '_image.npy'
-                cmd = [args.decoder, input_filename, output_filename]
+                cmd = shlex.split(args.decoder) + [input_filename, output_filename]
                 cmd_jpeg = []
                 if 'preview' in descriptor:
                     preview_filename = os.path.join(work_dir,
@@ -137,7 +138,7 @@ def ConformanceTestRunner(args):
                     cmd.extend(['--preview_out', preview_filename])
                 if 'reconstructed_jpeg' in descriptor:
                     jpeg_filename = os.path.join(work_dir, 'reconstructed.jpg')
-                    cmd_jpeg = [args.decoder, input_filename, jpeg_filename]
+                    cmd_jpeg = shlex.split(args.decoder) + [input_filename, jpeg_filename]
                     exact_tests.append(('reconstructed.jpg', jpeg_filename))
                 if 'original_icc' in descriptor:
                     decoded_original_icc = os.path.join(
