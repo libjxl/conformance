@@ -162,12 +162,18 @@ def ConformanceTestRunner(args):
                             ' '.join(cmd_jpeg))
                         continue
 
+                try_color_transform = True
                 # Run validation of exact files.
                 for reference_basename, decoded_filename in exact_tests:
                     reference_filename = os.path.join(test_dir,
                                                       reference_basename)
-                    ok = ok & CompareBinaries(reference_filename, decoded_filename)
-
+                    binaries_identical = CompareBinaries(reference_filename, decoded_filename)
+                    # If the original.icc differs from the reference, we don't try even try to
+                    # apply lcms2.convert_pixels in CompareNPY. We record this here in
+                    # `try_color_transform` and use it when calling CampareNPY.
+                    if reference_basename == 'original.icc':
+                        try_color_transform = binaries_identical
+                    ok = ok & binaries_identical
                 # Validate metadata.
                 with open(meta_filename, 'r') as f:
                     meta = json.load(f)
@@ -194,7 +200,8 @@ def ConformanceTestRunner(args):
 
                 for i, fd in enumerate(descriptor['frames']):
                     ok = ok & CompareNPY(reference_npy, reference_icc, decoded_npy,
-                                         decoded_icc, i, fd['rms_error'],
+                                         decoded_icc if try_color_transform else reference_icc,
+                                         i, fd['rms_error'],
                                          fd['peak_error'])
 
                 if 'preview' in descriptor:
