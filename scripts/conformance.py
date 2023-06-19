@@ -48,14 +48,22 @@ def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error):
 
     print(f"RMSE: {actual_rmses}, peak error: {actual_peak_error}", flush=True)
 
+    error_dict = {"actual_peak_error": float(actual_peak_error),
+                  "actual_rmses": list(map(float, actual_rmses)),
+                  "actual_rmse": float(actual_rmse),
+                  "rmse_limit": rmse_limit,
+                  "peak_error": peak_error
+                  }
+
     if actual_rmse > rmse_limit:
-        return Failure(f"RMSE too large: {actual_rmse} > {rmse_limit}")
+        return Failure(f"RMSE too large: {actual_rmse} > {rmse_limit}") | error_dict
 
     if actual_peak_error > peak_error:
-        return Failure(
-            f"Peak error too large: {actual_peak_error} > {peak_error}")
-    # TODO(firsching): also include `actual_rmses`` and `actual_peak_error`` here for the dump.
-    return {"success": True}
+        Failure(
+            f"Peak error too large: {actual_peak_error} > {peak_error}") | error_dict
+
+    return {"success": True, "actual_peak_error": float(actual_peak_error)} | error_dict
+
 
 
 def CompareBinaries(ref_bin, dec_bin):
