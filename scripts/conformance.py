@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import shlex
 
 import lcms2
 
@@ -142,7 +143,7 @@ def ConformanceTestRunner(args):
                 input_filename = os.path.join(test_dir, 'input.jxl')
                 pixel_prefix = os.path.join(work_dir, 'decoded')
                 output_filename = pixel_prefix + '_image.npy'
-                cmd = [args.decoder, input_filename, output_filename]
+                cmd = shlex.split(args.decoder) + [input_filename, output_filename]
                 cmd_jpeg = []
                 if 'preview' in descriptor:
                     preview_filename = os.path.join(work_dir,
@@ -150,7 +151,7 @@ def ConformanceTestRunner(args):
                     cmd.extend(['--preview_out', preview_filename])
                 if 'reconstructed_jpeg' in descriptor:
                     jpeg_filename = os.path.join(work_dir, 'reconstructed.jpg')
-                    cmd_jpeg = [args.decoder, input_filename, jpeg_filename]
+                    cmd_jpeg = shlex.split(args.decoder) + [input_filename, jpeg_filename]
                     exact_tests.append(('reconstructed.jpg', jpeg_filename))
                 if 'original_icc' in descriptor:
                     decoded_original_icc = os.path.join(
@@ -178,14 +179,21 @@ def ConformanceTestRunner(args):
                         results.append(test_dump)
                         continue
 
+                try_color_transform = True
                 # Run validation of exact files.
                 test_dump["exact_tests"] = []
                 for reference_basename, decoded_filename in exact_tests:
                     reference_filename = os.path.join(test_dir,
                                                       reference_basename)
                     test_dump["exact_tests"].append(reference_basename)
-                    test_dump[f"compare_binary_{reference_basename}"] = CompareBinaries(
-                        reference_filename, decoded_filename)
+                    binaries_identical = CompareBinaries(reference_filename, decoded_filename)
+
+                    test_dump[f"compare_binary_{reference_basename}"] = binaries_identical
+                    # If the original.icc differs from the reference, we don't try even try to
+                    # apply lcms2.convert_pixels in CompareNPY. We record this here in
+                    # `try_color_transform` and use it when calling CampareNPY.
+                    if reference_basename == 'original.icc':
+                        try_color_transform = binaries_identical
 
                 # Validate metadata.
                 with open(meta_filename, 'r') as f:
@@ -215,10 +223,9 @@ def ConformanceTestRunner(args):
 
                 test_dump["num_frames"] = len(descriptor['frames'])
                 for i, fd in enumerate(descriptor['frames']):
-                    test_dump[f"frame{i}_compare_npy"] = CompareNPY(reference_npy, reference_icc,
-                                                                    decoded_npy, decoded_icc, i,
-                                                                    fd['rms_error'],
-                                                                    fd['peak_error'])
+                    test_dump[f"frame{i}_compare_npy"] = CompareNPY(reference_npy, reference_icc, decoded_npy,
+                                                                    decoded_icc if try_color_transform else reference_icc,
+                                                                    i, fd['rms_error'], fd['peak_error'])
 
                 if 'preview' in descriptor:
                     reference_npy = os.path.join(test_dir,
