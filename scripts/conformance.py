@@ -193,7 +193,7 @@ def ConformanceTestRunner(args):
                     # apply lcms2.convert_pixels in CompareNPY. We record this here in
                     # `try_color_transform` and use it when calling CampareNPY.
                     if reference_basename == 'original.icc':
-                        try_color_transform = binaries_identical
+                        try_color_transform = binaries_identical['success']
 
                 # Validate metadata.
                 with open(meta_filename, 'r') as f:
