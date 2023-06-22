@@ -19,9 +19,11 @@ import shlex
 
 import lcms2
 
+
 def Failure(message):
     print(f"\033[91m{message}\033[0m", flush=True)
-    return False
+    return {"success": False, "message": message}
+
 
 def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error):
     """Compare a decoded numpy against the reference one."""
@@ -41,18 +43,28 @@ def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error):
     error = numpy.abs(ref_frame - dec_frame)
     actual_peak_error = error.max()
     error_by_channel = [error[:, :, ch] for ch in range(num_channels)]
-    actual_rmses = [numpy.sqrt(numpy.mean(error_ch * error_ch)) for error_ch in error_by_channel]
+    actual_rmses = [numpy.sqrt(numpy.mean(error_ch * error_ch))
+                    for error_ch in error_by_channel]
     actual_rmse = max(actual_rmses)
 
     print(f"RMSE: {actual_rmses}, peak error: {actual_peak_error}", flush=True)
 
+    error_dict = {"actual_peak_error": float(actual_peak_error),
+                  "actual_rmses": list(map(float, actual_rmses)),
+                  "actual_rmse": float(actual_rmse),
+                  "rmse_limit": rmse_limit,
+                  "peak_error": peak_error
+                  }
+
     if actual_rmse > rmse_limit:
-        return Failure(f"RMSE too large: {actual_rmse} > {rmse_limit}")
+        return Failure(f"RMSE too large: {actual_rmse} > {rmse_limit}") | error_dict
 
     if actual_peak_error > peak_error:
-        return Failure(
-            f"Peak error too large: {actual_peak_error} > {peak_error}")
-    return True
+        Failure(
+            f"Peak error too large: {actual_peak_error} > {peak_error}") | error_dict
+
+    return {"success": True, "actual_peak_error": float(actual_peak_error)} | error_dict
+
 
 
 def CompareBinaries(ref_bin, dec_bin):
@@ -66,7 +78,7 @@ def CompareBinaries(ref_bin, dec_bin):
     if ref_data != dec_data:
         return Failure(
             f'Binary files mismatch: {ref_bin} {dec_bin}')
-    return True
+    return {"success": True}
 
 
 TEST_KEYS = set(
@@ -98,11 +110,11 @@ def CheckMeta(dec, ref):
                 f"Metadata: Expected {ref}, found {dec}")
     elif dec != ref:
         return Failure(f"Metadata: Expected {ref}, found {dec}")
-    return True
+    return {"success": True}
 
 
 def ConformanceTestRunner(args):
-    ok = True
+    results = []
     # We can pass either the .txt file or the directory which defaults to the
     # full corpus. This is useful to run a subset of the corpus in other .txt
     # files.
@@ -116,6 +128,7 @@ def ConformanceTestRunner(args):
     with open(corpus_txt, 'r') as f:
         for test_id in f:
             test_id = test_id.rstrip('\n')
+            test_dump = {"test_id": test_id}
             print(f"\033[94m\033[1mTesting {test_id}\033[0m", flush=True)
             test_dir = os.path.join(corpus_dir, test_id)
 
@@ -151,35 +164,42 @@ def ConformanceTestRunner(args):
                 cmd.extend(['--norender_spotcolors'])
 
                 print(f"Running: {cmd}", flush=True)
+                test_dump["cmd"] = cmd
                 if subprocess.call(cmd) != 0:
-                    ok = Failure('Running the decoder (%s) returned error' %
-                                 ' '.join(cmd))
+                    test_dump.update(Failure(
+                        'Running the decoder (%s) returned error' % ' '.join(cmd)))
+                    results.append(test_dump)
                     continue
                 if cmd_jpeg:
                     print(f"Running: {cmd_jpeg}", flush=True)
                     if subprocess.call(cmd_jpeg) != 0:
-                        ok = Failure(
+                        test_dump.update(Failure(
                             'Running the decoder (%s) returned error' %
-                            ' '.join(cmd_jpeg))
+                            ' '.join(cmd_jpeg)))
+                        results.append(test_dump)
                         continue
 
                 try_color_transform = True
                 # Run validation of exact files.
+                test_dump["exact_tests"] = []
                 for reference_basename, decoded_filename in exact_tests:
                     reference_filename = os.path.join(test_dir,
                                                       reference_basename)
+                    test_dump["exact_tests"].append(reference_basename)
                     binaries_identical = CompareBinaries(reference_filename, decoded_filename)
+
+                    test_dump[f"compare_binary_{reference_basename}"] = binaries_identical
                     # If the original.icc differs from the reference, we don't try even try to
                     # apply lcms2.convert_pixels in CompareNPY. We record this here in
                     # `try_color_transform` and use it when calling CampareNPY.
                     if reference_basename == 'original.icc':
-                        try_color_transform = binaries_identical
-                    ok = ok & binaries_identical
+                        try_color_transform = binaries_identical['success']
+
                 # Validate metadata.
                 with open(meta_filename, 'r') as f:
                     meta = json.load(f)
 
-                ok = ok & CheckMeta(meta, descriptor)
+                test_dump["check_meta"] = CheckMeta(meta, descriptor)
 
                 # Pixel data.
                 decoded_icc = pixel_prefix + '.icc'
@@ -193,17 +213,19 @@ def ConformanceTestRunner(args):
                 decoded_npy = os.path.join(work_dir, 'decoded_image.npy')
 
                 if not os.path.exists(decoded_npy):
-                    ok = Failure('File not decoded: decoded_image.npy')
+                    test_dump.update(
+                        Failure('File not decoded: decoded_image.npy'))
+                    results.append(test_dump)
                     continue
 
                 reference_npy = numpy.load(reference_npy)
                 decoded_npy = numpy.load(decoded_npy)
 
+                test_dump["num_frames"] = len(descriptor['frames'])
                 for i, fd in enumerate(descriptor['frames']):
-                    ok = ok & CompareNPY(reference_npy, reference_icc, decoded_npy,
-                                         decoded_icc if try_color_transform else reference_icc,
-                                         i, fd['rms_error'],
-                                         fd['peak_error'])
+                    test_dump[f"frame{i}_compare_npy"] = CompareNPY(reference_npy, reference_icc, decoded_npy,
+                                                                    decoded_icc if try_color_transform else reference_icc,
+                                                                    i, fd['rms_error'], fd['peak_error'])
 
                 if 'preview' in descriptor:
                     reference_npy = os.path.join(test_dir,
@@ -211,17 +233,29 @@ def ConformanceTestRunner(args):
                     decoded_npy = os.path.join(work_dir, 'decoded_preview.npy')
 
                     if not os.path.exists(decoded_npy):
-                        ok = Failure(
-                            'File not decoded: decoded_preview.npy')
+                        test_dump.update(Failure(
+                            'File not decoded: decoded_preview.npy'))
 
                     reference_npy = numpy.load(reference_npy)
                     decoded_npy = numpy.load(decoded_npy)
-                    ok = ok & CompareNPY(reference_npy, reference_icc, decoded_npy,
-                                         decoded_icc, 0,
-                                         descriptor['preview']['rms_error'],
-                                         descriptor['preview']['peak_error'])
-
-    return ok
+                    test_dump["preview"] = CompareNPY(reference_npy, reference_icc, decoded_npy,
+                                                      decoded_icc, 0,
+                                                      descriptor['preview']['rms_error'],
+                                                      descriptor['preview']['peak_error'])
+                test_dump["success"] = (test_dump["check_meta"]["success"] and
+                                        all(
+                                        test_dump[f"compare_binary_{reference_basename}"]["success"]
+                                            for reference_basename in test_dump["exact_tests"]) and
+                                        all(test_dump[f"frame{i}_compare_npy"]["success"]
+                                            for i in range(test_dump["num_frames"])) and
+                                        test_dump.get("preview", {}).get(
+                                            "success", True)
+                                        )
+            results.append(test_dump)
+    if args.results:
+        with open(args.results, 'w') as f:
+            json.dump(results, f)
+    return all(test_dump["success"] for test_dump in results)
 
 
 def main():
@@ -236,6 +270,11 @@ def main():
         required=True,
         help=('path to the corpus directory or corpus descriptor'
               ' text file.'))
+    parser.add_argument(
+        '--results',
+        metavar='RESULTS',
+        required=False,
+        help=('path to the json file where results should be stored'))
     args = parser.parse_args()
     if not ConformanceTestRunner(args):
         sys.exit(1)
