@@ -1,0 +1,105 @@
+--------------------------------------------------------------
+	    README FILE FOR THE T.24 DIGITIZED IMAGE SET
+--------------------------------------------------------------
+
+TITLE
+-----
+
+ ITU-T T.24 (06/1998) - Standardized digitized image set
+ (CD-04 edition)
+
+Test images have played an important role throughout the development of Group 3
+and Group 4 facsimile. This digitized test chart set has been prepared with the
+goal of providing a standard set of images to facsimile experimenters. The set
+includes images that have been used over the years plus new images that are
+applicable for gray scale and color. The standard set of images will provide a
+consistent baseline for further work; for example, results of compression
+algorithm experiments and image quality tests can be compared by a broad range
+of users, knowing that the input image data is identical
+
+This digitized test chart set is an integral part of ITU-T Rec. T.24 and is
+published with it. The two CD-ROMs include a set of digitized images with
+different resolutions. A detailed description is given in T.24 for each test
+chart.
+
+COPYRIGHT AND INTELLECTUAL PROPERTY
+-----------------------------------
+
+In order to preserve and protect its rights, the International Telecommunication
+Union (ITU) fully retains all titles and rights in this software and does not
+sell any rights related thereto; it grants, however, the right to use the
+software by means of a licence not implying in any way any sale, renting or
+otherwise gain financial profit from making available the original software or
+any copy thereof.
+
+By the present licence, ITU grants users of the software a non-exclusive right
+to freely reproduce the information contained therein, so that it may be used
+for intended purposes only. Use of the software constitutes the agreement by
+users of the terms and conditions of the present notice.
+
+The present notice must be included in any copy of the software or the
+information contained therein.
+
+ITU CONTACTS
+------------
+
+For distribution of update software, please contact:
+Sales Department
+ITU
+Place des Nations
+CH-1211 Geneve 20
+SUISSE
+email: sales@itu.int
+
+For reporting problems, please contact TSB helpdesk service at:
+TSB Helpdesk service
+ITU
+Place des Nations
+CH-1211 Geneve 20
+SUISSE
+fax: +41 22 730 5853
+email: tsbedh@itu.int
+
+USAGE INSTRUCTIONS:
+-------------------
+
+The images can be viewed with any available viewer complying with the TIFF
+specification.
+
+Among others, there are the following shareware: VuePrint from Hamrick Software
+at http://www.hamrick.com and Paint Shop Pro at http://www.jasc.com.
+
+Located in the root directory of the first CD-ROM, you'll find the TIFF
+Specification Revision 6.0 in pdf format:
+
+   Tiff6.pdf           TIFF Specification Revision 6.0
+
+The following copyright statement is included in the TIFF Specification Revision 6.0:
+
+(c) 1986-1988, 1992 Aldus Corporation. Permission to copy without fee all
+or part of this material is granted provided that the copies are not made or
+distributed for direct commercial advantage and the Aldus copyright notice appears.
+If the majority of the document is copied or redistributed, it must be distributed
+verbatim, without repagination or reformatting. To copy otherwise requires specific
+permission from the Aldus Corporation.
+
+CD-ROM CONTENTS:
+----------------
+
+The first CD-ROM contains the charts which were already included in 1994 version.
+The second CD-ROM contains the supplementary test charts introduced in 1998 edition.
+
+The files are organized as follows:
+
+CD-ROM 1:
+  - IMAGE1      : A directory containing 1st CD-ROM test charts
+ imgspec1.rtf   : Image specification for CD-ROM1 in rtf format
+ imgspec1.txt   : Image specification for CD-ROM1 in txt format
+ readme.txt     : This file
+ tiff6.pdf      : TIFF specification revision 6.0 
+
+CD-ROM 2:
+  - IMAGE2      : A directory containing 2nd CD-ROM test charts
+ imgspec2.rtf   : Image specification for CD-ROM2 in rtf format
+ imgspec2.txt   : Image specification for CD-ROM2 in txt format
+ readme.txt     : This file
