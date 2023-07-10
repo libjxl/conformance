@@ -25,7 +25,7 @@ def Failure(message):
     return {"success": False, "message": message}
 
 
-def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error):
+def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error, lax):
     """Compare a decoded numpy against the reference one."""
     if ref.shape != dec.shape:
         return Failure(f'Expected shape {ref.shape} but found {dec.shape}')
@@ -39,6 +39,10 @@ def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error):
             return Failure(f"Only RGB images are supported")
         dec_clr = dec_frame[:, :, 0:3]
         dec_frame[:, :, 0:3] = lcms2.convert_pixels(dec_icc, ref_icc, dec_clr)
+
+    if lax:
+        numpy.clip(ref_frame, 0, 1, ref_frame)
+        numpy.clip(dec_frame, 0, 1, dec_frame)
 
     error = numpy.abs(ref_frame - dec_frame)
     actual_peak_error = error.max()
@@ -153,7 +157,7 @@ def ConformanceTestRunner(args):
                     jpeg_filename = os.path.join(work_dir, 'reconstructed.jpg')
                     cmd_jpeg = shlex.split(args.decoder) + [input_filename, jpeg_filename]
                     exact_tests.append(('reconstructed.jpg', jpeg_filename))
-                if 'original_icc' in descriptor:
+                if 'original_icc' in descriptor and not args.lax:
                     decoded_original_icc = os.path.join(
                         work_dir, 'decoded_org.icc')
                     cmd.extend(['--orig_icc_out', decoded_original_icc])
@@ -225,7 +229,7 @@ def ConformanceTestRunner(args):
                 for i, fd in enumerate(descriptor['frames']):
                     test_dump[f"frame{i}_compare_npy"] = CompareNPY(reference_npy, reference_icc, decoded_npy,
                                                                     decoded_icc if try_color_transform else reference_icc,
-                                                                    i, fd['rms_error'], fd['peak_error'])
+                                                                    i, fd['rms_error'], fd['peak_error'], args.lax)
 
                 if 'preview' in descriptor:
                     reference_npy = os.path.join(test_dir,
@@ -275,6 +279,11 @@ def main():
         metavar='RESULTS',
         required=False,
         help=('path to the json file where results should be stored'))
+    parser.add_argument(
+        '--lax',
+        required=False,
+        action='store_true',
+        help=('lax mode, do not check original.icc and clamp values to 0..1 before comparing'))
     args = parser.parse_args()
     if not ConformanceTestRunner(args):
         sys.exit(1)
