@@ -153,7 +153,7 @@ def ConformanceTestRunner(args):
                     preview_filename = os.path.join(work_dir,
                                                     'decoded_preview.npy')
                     cmd.extend(['--preview_out', preview_filename])
-                if 'reconstructed_jpeg' in descriptor:
+                if 'reconstructed_jpeg' in descriptor and not args.lax:
                     jpeg_filename = os.path.join(work_dir, 'reconstructed.jpg')
                     cmd_jpeg = shlex.split(args.decoder) + [input_filename, jpeg_filename]
                     exact_tests.append(('reconstructed.jpg', jpeg_filename))
