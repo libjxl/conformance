@@ -84,11 +84,12 @@ def convert_pixels(from_icc, to_icc, from_pixels):
     from_icc = bytearray(from_icc)
     to_icc = bytearray(to_icc)
 
-    if len(from_pixels.shape) != 3 or from_pixels.shape[2] != 3:
-        raise ValueError("Only WxHx3 shapes are supported")
+    if len(from_pixels.shape) != 3:
+        raise ValueError("Only WxHxC shapes are supported")
     from_pixels_plain = from_pixels.ravel().astype(numpy.float64)
-    num_pixels = len(from_pixels_plain) // 3
-    to_pixels_plain = numpy.empty(num_pixels * 3, dtype=numpy.float64)
+    num_chans = from_pixels.shape[2]
+    num_pixels = len(from_pixels_plain) // num_chans
+    to_pixels_plain = numpy.empty(num_pixels * num_chans, dtype=numpy.float64)
 
     from_icc = (ctypes.c_char * len(from_icc)).from_buffer(from_icc)
     from_profile = native_open_profile(
@@ -100,11 +101,13 @@ def convert_pixels(from_icc, to_icc, from_pixels):
 
     # bytes_per_sample=0 actually means 8 bytes (but there are just 3 bits to
     # encode the length of sample)
-    format_rgb_f64 = make_format(bytes_per_sample=0)
+    ptype = 4 #RGB
+    if num_chans == 1: ptype = 3 #Gray
+    format_f64 = make_format(bytes_per_sample=0, num_channels=num_chans, pixel_type=ptype)
     intent = 0  # INTENT_PERCEPTUAL
     flags = 0  # default; no "no-optimization"
     transform = native_create_transform(
-        from_profile, format_rgb_f64, to_profile, format_rgb_f64, intent, flags)
+        from_profile, format_f64, to_profile, format_f64, intent, flags)
 
     native_do_transform(
         transform, from_pixels_plain, to_pixels_plain, num_pixels)

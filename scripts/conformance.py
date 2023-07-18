@@ -27,18 +27,30 @@ def Failure(message):
 
 def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error, lax):
     """Compare a decoded numpy against the reference one."""
-    if ref.shape != dec.shape:
-        return Failure(f'Expected shape {ref.shape} but found {dec.shape}')
+    if frame_idx >= dec.shape[0]:
+        return Failure(f'Frame count does not match: ref {ref.shape}, decoded {dec.shape}')
+
     ref_frame = ref[frame_idx]
     dec_frame = dec[frame_idx]
+    # Allow decoded images to be RGBA while reference is RGB, as long as A is trivial (all 1)
+    if dec.shape[3] == 4 and ref.shape[3] == 3 and lax:
+        minalpha = dec_frame[:,:, 3:4].min()
+        if minalpha < 1:
+            return Failure('Decoded has nontrivial alpha while reference has no alpha')
+        dec_frame = dec_frame[:, :, 0:3]
+
+    if ref_frame.shape != dec_frame.shape:
+        return Failure(f'Expected shape {ref.shape} but found {dec.shape}')
     num_channels = ref_frame.shape[2]
 
     if ref_icc != dec_icc:
         # Transform colors before comparison.
-        if num_channels < 3:
-            return Failure(f"Only RGB images are supported")
-        dec_clr = dec_frame[:, :, 0:3]
-        dec_frame[:, :, 0:3] = lcms2.convert_pixels(dec_icc, ref_icc, dec_clr)
+        if num_channels >= 3:
+            dec_clr = dec_frame[:, :, 0:3]
+            dec_frame[:, :, 0:3] = lcms2.convert_pixels(dec_icc, ref_icc, dec_clr)
+        else:
+            dec_clr = dec_frame[:, :, 0:1]
+            dec_frame[:, :, 0:1] = lcms2.convert_pixels(dec_icc, ref_icc, dec_clr)
 
     if lax:
         numpy.clip(ref_frame, 0, 1, ref_frame)
