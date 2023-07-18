@@ -64,7 +64,7 @@ def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error, la
         return Failure(f"RMSE too large: {actual_rmse} > {rmse_limit}") | error_dict
 
     if actual_peak_error > peak_error:
-        Failure(
+        return Failure(
             f"Peak error too large: {actual_peak_error} > {peak_error}") | error_dict
 
     return {"success": True, "actual_peak_error": float(actual_peak_error)} | error_dict
