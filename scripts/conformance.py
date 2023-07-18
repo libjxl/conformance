@@ -153,7 +153,7 @@ def ConformanceTestRunner(args):
                     preview_filename = os.path.join(work_dir,
                                                     'decoded_preview.npy')
                     cmd.extend(['--preview_out', preview_filename])
-                if 'reconstructed_jpeg' in descriptor:
+                if 'reconstructed_jpeg' in descriptor and not args.lax:
                     jpeg_filename = os.path.join(work_dir, 'reconstructed.jpg')
                     cmd_jpeg = shlex.split(args.decoder) + [input_filename, jpeg_filename]
                     exact_tests.append(('reconstructed.jpg', jpeg_filename))
@@ -246,7 +246,7 @@ def ConformanceTestRunner(args):
                                                       decoded_icc, 0,
                                                       descriptor['preview']['rms_error'],
                                                       descriptor['preview']['peak_error'])
-                test_dump["success"] = (test_dump["check_meta"]["success"] and
+                test_dump["success"] = ((test_dump["check_meta"]["success"] or args.lax) and
                                         all(
                                         test_dump[f"compare_binary_{reference_basename}"]["success"]
                                             for reference_basename in test_dump["exact_tests"]) and
