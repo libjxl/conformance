@@ -1,6 +1,7 @@
 testcases/*/*.npy
 testcases/*/*.jpg
 testcases/*/*.icc
+scripts/__pycache__/
 .objects
 *.zip
 # We allow input.jxl files in this repository for ease of human-driven testing.
