@@ -17,9 +17,7 @@
   "exp_bits_per_sample": [
     8
   ],
-  "original_icc": "original.icc",
   "sha256sums": {
-    "original.icc": "d7f9e32ac2a06a7e3865a828e865dafb7cf1947584d3c06ec97a660c59786b51",
     "reference.icc": "d7f9e32ac2a06a7e3865a828e865dafb7cf1947584d3c06ec97a660c59786b51",
     "reference_image.npy": "1eac3ced5c60ef8a3a602f54c6a9d28162dfee51cd85b8dd7e52f6e3212bbb52"
   }
