@@ -43,7 +43,7 @@ def CompareNPY(ref, ref_icc, dec, dec_icc, frame_idx, rmse_limit, peak_error, la
         return Failure(f'Expected shape {ref.shape} but found {dec.shape}')
     num_channels = ref_frame.shape[2]
 
-    if ref_icc != dec_icc && peak_error > 0:
+    if ref_icc != dec_icc and peak_error > 0:
         # Transform colors before comparison.
         # Skip this if we expect fully lossless, since it introduces tiny errors
         # (even in the case where ref_icc and dec_icc are equivalent so it's a no-op)
