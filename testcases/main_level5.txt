@@ -13,6 +13,7 @@ grayscale_5
 grayscale_jpeg_5
 grayscale_public_university
 lz77_flower
+mul_no_extra_channels
 noise_5
 opsin_inverse_5
 patches_5

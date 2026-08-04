@@ -1,0 +1,23 @@
+{
+  "frames": [
+    {
+      "name": "",
+      "rms_error": 0.0001,
+      "peak_error": 0.004
+    }
+  ],
+  "intensity_target": 255.0,
+  "min_nits": 0.0,
+  "relative_to_max_display": 0,
+  "linear_below": 0.0,
+  "extra_channel_type": [],
+  "bits_per_sample": [
+    8
+  ],
+  "exp_bits_per_sample": [
+    0
+  ],
+  "sha256sums": {
+    "reference.icc": "d7f9e32ac2a06a7e3865a828e865dafb7cf1947584d3c06ec97a660c59786b51"
+  }
+}
