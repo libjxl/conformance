@@ -25,6 +25,7 @@ The licenses of the source images or animations these bitstreams were based on a
 | grayscale_public_university | CC BY 3.0, Arnold and Richter Cine Technik GmbH |
 | lossless_pfm | CC0 |
 | lz77_flower | CC0 |
+| mul_no_extra_channels | CC0 |
 | noise | CC0 |
 | opsin_inverse | CC0 |
 | patches | CC0 |

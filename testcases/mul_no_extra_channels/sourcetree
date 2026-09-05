@@ -1,0 +1,8 @@
+Width 8
+Height 8
+Bitdepth 8
+NotLast
+- Set 128
+
+BlendMode kMul
+- Set 128

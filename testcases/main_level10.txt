@@ -16,6 +16,7 @@ grayscale
 grayscale_public_university
 lossless_pfm
 lz77_flower
+mul_no_extra_channels
 noise
 opsin_inverse
 patches
