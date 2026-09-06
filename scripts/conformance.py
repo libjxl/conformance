@@ -239,11 +239,16 @@ def ConformanceTestRunner(args):
                 reference_npy = numpy.load(reference_npy)
                 decoded_npy = numpy.load(decoded_npy)
 
-                test_dump["num_frames"] = len(descriptor['frames'])
-                for i, fd in enumerate(descriptor['frames']):
-                    test_dump[f"frame{i}_compare_npy"] = CompareNPY(reference_npy, reference_icc, decoded_npy,
-                                                                    decoded_icc if try_color_transform else reference_icc,
-                                                                    i, fd['rms_error'], fd['peak_error'], args.lax)
+                test_dump["num_frames"] = num_frames = max(len(descriptor['frames']), decoded_npy.shape[0])
+                for i in range(num_frames):
+                    try:
+                        fd = descriptor['frames'][i]
+                    except IndexError:
+                        test_dump[f"frame{i}_compare_npy"] = Failure("extraneous decoded frame")
+                    else:
+                        test_dump[f"frame{i}_compare_npy"] = CompareNPY(reference_npy, reference_icc, decoded_npy,
+                                                                        decoded_icc if try_color_transform else reference_icc,
+                                                                        i, fd['rms_error'], fd['peak_error'], args.lax)
 
                 if 'preview' in descriptor:
                     reference_npy = os.path.join(test_dir,
